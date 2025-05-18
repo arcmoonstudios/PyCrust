@@ -1,107 +1,152 @@
-# PyCrust Launcher (v4.0.2 Orchestrator)
+# PyCrust: Advanced Rust Project Analysis & Refactoring Framework
 
-This repository contains the `pycrust.py` bootstrap script. This script is a lightweight launcher that, when run, will set up the "Xyn's Decruster" environment and fetch the powerful **PyDecruster Engine** (from a separate, private repository) to analyze and assist with your Rust projects.
+This repository contains the `pycrust.py` orchestrator script that bootstraps the powerful **Xyn's Decruster** framework for analyzing and enhancing Rust projects.
 
-## Prerequisites
+## Why This Approach?
 
-1. **Git CLI**: Ensure `git` is installed and accessible in your system's PATH.
-   * Verify with: `git --version`
+Originally, users directly cloned the `pyDecruster` repository, but this caused numerous issues:
 
-2. **Python**: Python 3.8 or newer is recommended.
-   * Verify with: `python --version` or `python3 --version`
+1. Many users faced setup problems without the proper environment configuration
+2. Direct cloning bypassed essential initialization steps needed for proper framework operation
+3. Several users reported functionality issues due to incorrect configuration
 
-3. **GitHub Personal Access Token (PAT)**: The PyDecruster Engine is hosted in a private repository (`arcmoonstudios/pyDecruster`). To allow `pycrust.py` to clone it, you need to:
+After receiving multiple issue reports, I revamped the entire approach to ensure a seamless experience. The current architecture uses this `pycrust.py` script as a specialized orchestrator that:
 
-   * Generate a GitHub Personal Access Token (Classic or Fine-Grained).
-   * **Permissions for Fine-Grained PAT**:
-     * Repository access: "Only select repositories" -> `arcmoonstudios/pyDecruster`
-     * Repository permissions: **Contents** -> **Read-only`.
-   * Set this token as an environment variable named `PYDECRUSTER_TOKEN`.
+1. Automatically sets up the correct directory structure
+2. Handles dependency management through an integrated virtual environment
+3. Configures the framework correctly with zero user interaction required
+4. Properly initializes all components needed for the advanced analysis engine
 
-## Quick Start
+This approach allows me to continue actively developing the core `pyDecruster` engine while ensuring everyone who uses it gets a properly configured installation that just works.
 
-1. **Set `PYDECRUSTER_TOKEN`**: Follow the instructions above to set your GitHub PAT.
+## Implementation Architecture Evolution
 
-2. **Download the Launcher Script (`pycrust.py`)**:
+The framework architecture evolved in response to systematic deployment issues:
 
-   Open your terminal and run:
+\```
+HISTORICAL_DEPLOYMENT_PATTERN:
+│
+├── PHASE_1: Direct Repository Access [DEPRECATED]
+│   └── Users directly cloned pyDecruster repository
+│       └── ERROR: Framework initialization failures
+│           └── ISSUE: Missing environment configuration
+│           └── ISSUE: Improper directory structures
+│           └── ISSUE: Unresolved dependency chains
+│
+└── PHASE_2: Orchestrated Deployment [CURRENT]
+    └── Two-phase initialization process
+        ├── Bootstrap: Clone PyCrust repository
+        └── Orchestration: Execute pycrust.py
+            └── Runtime sparse-cloning of framework components
+            └── Automated environment preparation
+            └── Proper initialization sequence enforcement
+\```
 
-   * **PowerShell:**
+This architectural approach ensures controlled deployment with precise initialization sequencing, preventing the configuration failures reported by multiple users in the previous direct access pattern.
 
-     ```powershell
-     curl.exe -L "https://raw.githubusercontent.com/arcmoonstudios/pycrust-launcher/Main/pycrust.py" -o pycrust.py
-     ```
+## System Prerequisites
 
-   * **bash/zsh:**
+```python
+REQUIRED_COMPONENTS = {
+    "git": {
+        "verification_command": "git --version",
+        "minimum_version": "2.20.0",
+        "purpose": "Repository management and sparse checkout operations"
+    },
+    "python": {
+        "verification_command": "python --version || python3 --version",
+        "minimum_version": "3.8.0",
+        "purpose": "Execution environment for framework orchestration"
+    }
+}
+```
 
-     ```bash
-     curl -L "https://raw.githubusercontent.com/arcmoonstudios/pycrust-launcher/Main/pycrust.py" -o pycrust.py
-     ```
+## Implementation Procedure
 
-3. **Run PyCrust**:
+### Deployment Protocol
 
-   Navigate to your Rust project's root and execute:
+```bash
+# PHASE 1: Bootstrap Repository Acquisition
 
-   ```powershell
-   python pycrust.py
+git clone https://github.com/arcmoonstudios/PyCrust.git
+cd PyCrust
 
-   # Or target a specific path:
-   # python path/to/pycrust.py path/to/your/rust_project
-   ```
+# PHASE 2: Framework Orchestration Execution
 
-4. **Set Up Python Environment for PyDecruster Engine**:
+python pycrust.py
+```
 
-   After the first run (which clones `pyDecruster` and copies `reqenv.py`),:
+The orchestrator performs these critical operations:
 
-   * Navigate to the project root (alongside `pycrust.py`).
-   * Run `python reqenv.py`. This will:
-     * Create a virtual environment named `PycRustEnv`.
-     * Provide activation instructions.
-     * After activation, rerun `python reqenv.py` to install dependencies.
+1. Creates `./Xyn's Decruster/` in the target project root
+2. Sparse-clones core framework components from the private repository
+3. Deploys the operational `pycrust.py` script to the project root (from `pyDecruster/operational/pycrust.py`)
+4. Sets up a dedicated virtual environment with precise dependency resolution
 
-   **Example:**
+### Framework Utilization
 
-   ```powershell
-   cd /path/to/your/rust_project
-   python reqenv.py
-   # Then (PowerShell):
-   # . .\PycRustEnv\Scripts\activate.ps1
-   # (PycRustEnv) python reqenv.py
-   ```
+After initialization, all framework operations are performed through the root `pycrust.py`:
 
-5. **Use PyCrust**:
+```bash
+cd /path/to/your/rust_project
+python pycrust.py --scan          # Execute comprehensive project scan
+python pycrust.py --cli           # Initialize interactive analysis console
+python pycrust.py --force-setup   # Force environment reconstruction
+python pycrust.py --help          # View complete command reference
+```
 
-   With `PycRustEnv` activated:
+## Technical Architecture
 
-   ```powershell
-   python pycrust.py --scan
-   python pycrust.py --cli
-   python pycrust.py --help
-   ```
+```markdown
+TARGET_PROJECT_STRUCTURE:
+│
+├── [Your Rust Project Files]
+│
+├── pycrust.py                     # Operational interface (auto-deployed)
+│
+└── Xyn's Decruster/               # Framework environment
+    ├── pyDecruster/               # Core engine (sparse-cloned)
+    │   ├── pydecruster/           # Implementation modules
+    │   ├── README.md              # Engine documentation
+    │   └── requirements.txt       # Dependency specifications
+    │
+    ├── PYDECRUSTER_ENGINE_README.md  # Copied documentation
+    └── pycrust_orchestrator.log   # Operation logs
+```
 
-## How It Works
+## Deployment Verification
 
-`pycrust.py` is a bootstrap script that, on first run, will:
+The deployment is successfully completed when:
 
-1. Create `./Xyn's Decruster/` in your Rust project.
-2. Use `PYDECRUSTER_TOKEN` to sparse-clone `arcmoonstudios/pyDecruster` into that directory.
-3. Copy setup files (`reqenv.py`, `README.md`) for the PyDecruster environment.
-4. Use the local engine on subsequent runs.
+1. `Xyn's Decruster/` directory exists in project root
+2. `pycrust.py` operational script is present in project root
+3. Framework initialization completes with success message:
 
-This minimizes initial download and protects core IP.
+```text
+======================================================================
+Xyn's Decruster framework Installation is now Complete!
+======================================================================
+```
 
-## Troubleshooting
+## Implementation Troubleshooting
 
-* **`PYDECRUSTER_TOKEN` not set**: Ensure the environment variable is set.
-* **`git` not found**: Install `git` and add to PATH.
-* **Cloning fails**:
-  * Verify `PYDECRUSTER_TOKEN` has correct scopes and access.
-  * Check your internet connection.
-* **`reqenv.py` issues**:
-  * Ensure Python's `venv` module is available.
-  * Follow the shell-specific activation instructions.
-  * Manually install dependencies (e.g., PyCUDA) if pip fails.
+```python
+ERROR_RESOLUTION_MATRIX = {
+    "git_not_found": {
+        "detection": "CommandError: Command 'git' not found",
+        "resolution": "Install Git and ensure it's available in system PATH"
+    },
+    "python_environment_issues": {
+        "detection": "venv module not available",
+        "resolution": "Install Python with venv support (standard in Python 3.8+)"
+    },
+    "framework_initialization_failure": {
+        "detection": "Failed to set up PyDecruster engine",
+        "resolution": "Run with --verbose flag and check logs at ./Xyn's Decruster/pycrust_orchestrator.log"
+    }
+}
+```
 
-## License
+## License Configuration
 
-This launcher script (`pycrust.py`) is distributed under MIT. The PyDecruster Engine has its own license in its repository.
+The PyCrust orchestrator (`pycrust.py`) is distributed under MIT license, with independent licensing for the core PyDecruster engine defined within its repository.

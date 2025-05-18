@@ -23,7 +23,7 @@ This approach allows me to continue actively developing the core `pyDecruster` e
 
 The framework architecture evolved in response to systematic deployment issues:
 
-\```
+```markdown
 HISTORICAL_DEPLOYMENT_PATTERN:
 │
 ├── PHASE_1: Direct Repository Access [DEPRECATED]
@@ -40,7 +40,7 @@ HISTORICAL_DEPLOYMENT_PATTERN:
             └── Runtime sparse-cloning of framework components
             └── Automated environment preparation
             └── Proper initialization sequence enforcement
-\```
+```
 
 This architectural approach ensures controlled deployment with precise initialization sequencing, preventing the configuration failures reported by multiple users in the previous direct access pattern.
 
